@@ -15,7 +15,9 @@ To provision the example:
    ```
 
 1. Run `az login`
-1. Ensure that the following environment variable is filled in: `export ARM_SUBSCRIPTION_ID=<subscription id>`
+1. Ensure that the following environment variable is filled in: `export ARM_SUBSCRIPTION_ID=<subscription id>`.
+1. Run `terraform apply -auto-approve`.
+1. Run the `./upload-git.sh` script.
 
 ## THINGS TO BE DONE
 

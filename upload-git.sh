@@ -7,6 +7,7 @@ push_code() {
     git add *
     git commit -m "Update: pushed files up for web app"
     git push -u origin master
+    cd -
 }
 
 ######################################## Begin Script ########################################
@@ -36,5 +37,5 @@ if [[ ! -d "${GIT_DIRECTORY_NAME}" ]]; then
 fi
 
 # Uncomment this for CI-CD pipeline with ephemeral agent.
-# push_code
+push_code
 
