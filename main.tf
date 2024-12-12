@@ -39,6 +39,31 @@ resource "azurerm_storage_account" "web_app_storage_account" {
 }
 
 ################################################################################
+# Monitoring and Logging
+################################################################################
+resource "azurerm_log_analytics_workspace" "web_app" {
+  name                = "law-web-app"
+  location            = var.location
+  resource_group_name = var.web_app_resource_group_name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+  daily_quota_gb      = 1
+  tags                = var.tags
+}
+
+resource "azurerm_application_insights" "web_app" {
+  name                 = "ai-web-app"
+  location             = var.location
+  resource_group_name  = var.web_app_resource_group_name
+  workspace_id         = azurerm_log_analytics_workspace.web_app.id
+  application_type     = "web"
+  daily_data_cap_in_gb = 1
+  retention_in_days    = 30
+  sampling_percentage  = 100
+  tags                 = var.tags
+}
+
+################################################################################
 # App Service Plan
 ################################################################################
 resource "azurerm_service_plan" "app_service_plan_web_app" {
@@ -66,7 +91,8 @@ resource "azurerm_linux_web_app" "web_app" {
     }
   }
   app_settings = {
-    TableStorage = azurerm_storage_account.table_storage_database.primary_connection_string
+    TableStorage                          = azurerm_storage_account.table_storage_database.primary_connection_string
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.web_app.connection_string
   }
   storage_account {
     access_key   = azurerm_storage_account.web_app_storage_account.primary_access_key
@@ -82,6 +108,9 @@ resource "azurerm_app_service_source_control" "this" {
   use_local_git = true
 }
 
+################################################################################
+# Outputs
+################################################################################
 output "site_credential" {
   value     = azurerm_linux_web_app.web_app.site_credential
   sensitive = true
