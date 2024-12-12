@@ -8,7 +8,6 @@ To provision the example:
 
    ```hcl
    web_app_resource_group_name  = "test-rg"
-   shared_resource_group_name   = "shared-rg"
    web_app_storage_account_name = "masonwebappstore00000000"
    table_storage_account_name   = "masontablestoretodo01"
    public_access_enabled        = true
