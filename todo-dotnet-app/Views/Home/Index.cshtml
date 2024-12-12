@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Todo List";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body class="dark-theme">
+    <div class="todo-container">
+        <h1>Todo List</h1>
+        <div id="todo-list"></div>
+        <div class="add-todo">
+            <input type="text" id="todo-input" placeholder="Add a new todo" />
+            <button id="add-todo-btn">Add Todo</button>
+        </div>
+    </div>
+    
+    <script src="~/js/main.js"></script>
+</body>
+</html>
