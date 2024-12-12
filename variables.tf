@@ -3,11 +3,6 @@ variable "web_app_resource_group_name" {
   type        = string
 }
 
-variable "shared_resource_group_name" {
-  description = "(Required) The name of the shared resource group to create and reference shared resources (like databases, keyvaults and virtual networks etc)."
-  type        = string
-}
-
 variable "location" {
   description = "(Optional) The Azure region to place your resources in. Defaults to australiaeast."
   type        = string
